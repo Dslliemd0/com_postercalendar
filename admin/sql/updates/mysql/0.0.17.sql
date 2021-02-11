@@ -1,0 +1,1 @@
+ALTER TABLE `#__poster_calendar_events` MODIFY COLUMN `image` VARCHAR(1024) NOT NULL;

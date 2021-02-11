@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_postercalendar/models/rules">
+	<fieldset
+		name="main-details"
+		label="COM_POSTERCALENDAR_MAIN_FIELDS"
+	>
+		<field
+				name="id"
+				type="hidden"
+				/>
+		<field
+				name="title"
+				type="text"
+				label="COM_POSTERCALENDAR_POSTERCALENDAR_TITLE_LABEL"
+				description="COM_POSTERCALENDAR_POSTERCALENDAR_TITLE_DESC"
+				size="40"
+				class="inputbox"
+				/>
+		<field
+				name="date"
+				type="calendar"
+				label="COM_POSTERCALENDAR_POSTERCALENDAR_DATE_LABEL"
+				description="COM_POSTERCALENDAR_POSTERCALENDAR_DATE_DESC"
+				size="40"
+				class="inputbox"
+				/>
+	</fieldset>
+	<fields name="imageinfo">
+		<fieldset
+			name="image-info"
+			label="COM_POSTERCALENDAR_IMAGE_FIELDS"
+		>
+			<field
+				name="image"
+				type="media"
+				preview="tooltip"
+				label="COM_POSTERCALENDAR_POSTERCALENDAR_FIELD_IMAGE_LABEL"
+				description="COM_POSTERCALENDAR_POSTERCALENDAR_FIELD_IMAGE_DESC" />
+			<field name="alt"
+				type="text"
+				label="COM_POSTERCALENDAR_POSTERCALENDAR_FIELD_ALT_LABEL"
+				description="COM_POSTERCALENDAR_POSTERCALENDAR_FIELD_ALT_DESC"
+				size="30"/>
+			<field name="caption"
+				type="text"
+				label="COM_POSTERCALENDAR_POSTERCALENDAR_FIELD_CAPTION_LABEL"
+				description="COM_POSTERCALENDAR_POSTERCALENDAR_FIELD_CAPTION_DESC"
+				size="30"/>
+		</fieldset>
+	</fields>
+</form>

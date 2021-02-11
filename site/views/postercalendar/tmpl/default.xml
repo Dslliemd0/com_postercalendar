@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_POSTERCALENDAR_POSTERCALENDAR_VIEW_DEFAULT_TITLE">
+		<message>COM_POSTERCALENDAR_POSTERCALENDAR_VIEW_DEFAULT_DESC</message>
+	</layout>
+	<fields name="request"
+			addfieldpath="/administrator/components/com_postercalendar/models/fields"
+	>
+		<field 	name="title"
+				type="postercalendar"
+				label="COM_POSTERCALENDAR_POSTERCALENDAR_FIELD_GREETING_LABEL"
+				description="COM_POSTERCALENDAR_POSTERCALENDAR_FIELD_GREETING_DESC"
+		/>
+	</fields>
+</metadata>
