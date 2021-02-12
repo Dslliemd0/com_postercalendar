@@ -43,7 +43,7 @@ class PosterCalendarViewPosters extends JViewLegacy
         
         $this->setDocument();
     }
-    
+
     protected function setDocument() 
 	{
         JHtml::_('jquery.framework', false);

@@ -50,13 +50,17 @@ function getDateRange() {
 }
 
 function getDateContent() {
+    
     let year = today.getFullYear();
     let month = today.getMonth();
     let day = today.getDate();
     $.ajax({
-        url: `index.php?option=com_postercalendar&task=getcontent&date=${year}-${month}-${day}`,
-        type: 'post',
+        url: `index.php?option=com_postercalendar&view=posters&layout=items&tmpl=component&date=${year}-${month}-${day}`,
+        type: 'get',
+        dataType: 'html',
+        cache: 'false',
         success: function(response){
+            $('.uk-article').empty();
             $(response).appendTo($('.uk-article'));
         }
     });

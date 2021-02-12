@@ -15,10 +15,4 @@ defined('_JEXEC') or die('Restricted access');
  */
 class PosterCalendarController extends JControllerLegacy
 {
-    public function getContent() {
-        // Set view
-        JFactory::getApplication()->input->set('view', 'posters');
-        JFactory::getApplication()->input->set('layout', 'items');
-        parent::display();
-    }
 }
