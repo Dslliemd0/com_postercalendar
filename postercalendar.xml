@@ -9,7 +9,7 @@
 	<!--  The version string is recorded in the components table -->
 	<version>0.0.16</version>
 	<!-- The description is optional and defaults to the name -->
-	<description>COM_POSTERCALENDAR_DESCRIPTION</description>
+	<description>COM_POSTERCALENDAR_DESCRIPTION1</description>
 
 	<install> <!-- Runs on install -->
 		<sql>
