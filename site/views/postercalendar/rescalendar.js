@@ -15,8 +15,9 @@ let today = new Date();
 let months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
 function renderCalendar(currentDate, currentMonth, currentYear) {
-    finishedHTML = getNavigation(currentDate, currentMonth, currentYear);
+    let finishedHTML = getNavigation(currentDate, currentMonth, currentYear);
     $('#horizontal-calendar').html(finishedHTML);
+    renderDateContent();
 }
 
 function getNavigation(date, month, year) {
@@ -49,21 +50,23 @@ function getDateRange() {
     return collectedDates;
 }
 
-function getDateContent() {
-    
+function renderDateContent() {
     let year = today.getFullYear();
-    let month = today.getMonth();
-    let day = today.getDate();
+    let month = String(today.getMonth() + 1).padStart(2, '0');
+    let day = String(today.getDate()).padStart(2, '0');
+
     $.ajax({
-        url: `index.php?option=com_postercalendar&view=posters&layout=items&tmpl=component&date=${year}-${month}-${day}`,
-        type: 'get',
+        url: `index.php?option=com_postercalendar&view=posters&date=${year}-${month}-${day}`,
+        type: 'post',
         dataType: 'html',
-        cache: 'false',
         success: function(response){
-            $('.uk-article').empty();
-            $(response).appendTo($('.uk-article'));
+            // result = `<div id="date-content">${response}</div>`;
+            $('.poster-content').html(response);
+            
+
         }
     });
+
 }
 
 function setDate(fullDate) {
@@ -91,7 +94,6 @@ $(document).on('click', 'span.date-item', function(e) {
     let itemFullDate = $(e.target).attr("data-date");
     setDate(itemFullDate);
     renderCalendar(today.getDate(), today.getMonth() + 1, today.getFullYear());
-    getDateContent();
 })
 
 ;(function($) {

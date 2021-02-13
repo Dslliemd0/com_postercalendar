@@ -10,42 +10,76 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Text;
-
-// echo HtmlHelper::date('now', Text::_('DATE_FORMAT_LC4'));
-
-$current_month_days = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+echo $this->item;
 
 ?>
-<ul id="poster_calendar">
-    <?php for ($i = 1; $i <= $current_month_days; $i++): ?>
-    <li><?php
-        if ($i == date('d')) {
-            echo "<a href=\"#\">{$i}</a>";
-        } else {
-            echo $i;
-        }
-        ?>
-    </li>
-    <?php endfor; ?>
-</ul>
+<h1>Posters view</h1>
+<div class="rescalendar" id="example"></div>
 
-<?php
-foreach ($this->item as $poster) :
-?>
-<h1><?php echo $poster->title ?>
-</h1>
-<?php
-    $src = $poster->imageDetails['image'];
-    if ($src)
-    {
-        $html = '<figure>
-                    <img src="%s" alt="%s" >
-                    <figcaption>%s</figcaption>
-                </figure>';
-        $alt = $poster->imageDetails['alt'];
-        $caption = $poster->imageDetails['caption'];
-        echo sprintf($html, $src, $alt, $caption);
-    } 
-endforeach; ?>
+<div id="horizontal-calendar"></div>
+<div class="poster-content"></div>
+
+
+<script>
+
+const eventData = [
+	{
+		id: 1,
+		name:'item1',
+		startDate:'05-02-2021',
+		endDate:'08-02-2021',
+		customClass:'yourClass'
+	},
+	{
+		id: 2,
+		name:'item2',
+		startDate:'25-02-2021',
+		endDate:'25-02-2021',
+		customClass:'yourClass',
+		title:'Title 2'
+	},
+	{
+		id: 3,
+		name:'item5-5',
+		startDate:'05-01-2021',
+		endDate:'15-01-2021',
+		customClass:'yourClass'
+	}
+]
+
+
+
+$('#example').rescalendar({
+	id:'example',
+	format:'DD-MM-YYYY',
+	data: eventData,
+	dataKeyField:'name',
+	dataKeyValues: ['item1','item2','item3'],
+	locale:'en',
+
+	// initial date
+	refDate: moment().format('DD-MM-YYYY' ),
+
+	// the number of days to move on click
+	jumpSize: 15,
+
+	// calendar size
+	calSize: 30,
+
+	// disabled days
+	disabledDays : [],
+
+	// 0 = Sunday
+	disabledWeekDays: [],
+
+	// language strings
+	lang: {
+		'init_error' :'Error when initializing',
+		'no_data_error':'No data found',
+		'no_ref_date'  :'No refDate found',
+		'today'   :'Today'
+	}
+
+});
+
+</script>

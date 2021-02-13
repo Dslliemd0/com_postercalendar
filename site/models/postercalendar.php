@@ -10,63 +10,54 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Factory;
+
 /**
  * PosterCalendar Model
  *
  * @since  0.0.1
  */
-class PosterCalendarModelPosterCalendar extends JModelItem
+class PosterCalendarModelPosterCalendar extends JModelList
 {
 	/**
-	 * @var array messages
+	 * @var string message
 	 */
-	protected $messages;
-
-	/**
-	 * Method to get a table object, load it if necessary.
-	 *
-	 * @param   string  $type    The table name. Optional.
-	 * @param   string  $prefix  The class prefix. Optional.
-	 * @param   array   $config  Configuration array for model. Optional.
-	 *
-	 * @return  JTable  A JTable object
-	 *
-	 * @since   1.6
-	 */
-	public function getTable($type = 'PosterCalendar', $prefix = 'PosterCalendarTable', $config = array())
-	{
-		return JTable::getInstance($type, $prefix, $config);
-	}
+	protected $message;
 
 	/**
 	 * Get the message
-	 * @return object The message to be displayed to the user
+         *
+	 * @return  string  The message to be displayed to the user
 	 */
-	public function getItem()
+	public function getListQuery()
 	{
-		if (!isset($this->item)) 
-		{
-			$id    = $this->getState('message.id');
-			$db    = JFactory::getDbo();
-			$query = $db->getQuery(true);
-			$query->select($db->quoteName(array('id', 'title', 'date', 'image', 'thumb')));
-			$query->from($db->quoteName('#__poster_calendar_events'));
-			$db->setQuery((string) $query);
+		// Initialize variables.
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true);
 
-			$results = $db->loadObjectList();
-		
-			foreach ($results as $item) 
-			{
+        $input = JFactory::getApplication()->input;
+        $val = $input->get('date', '00-00-0000', 'string');              
+				
+        if (!isset($this->item)) 
+        {
+            $id    = $this->getState('message.id');
+            $db    = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query->select($db->quoteName(array('id', 'title', 'date', 'image', 'thumb')));
+            $query->from($db->quoteName('#__poster_calendar_events'));
+            $query->where($db->quoteName('date') . ' = ' . $db->quote($val));
+            $db->setQuery((string) $query);
 
-				// Convert the JSON-encoded image info into an array
-				$image = new JRegistry;
-				$image->loadString($item->image, 'JSON');
-				$item->imageDetails = $image;
-			}
-
-			
-		}
+            $results = $db->loadObjectList();
+        
+            foreach ($results as $item) 
+            {
+                // Convert the JSON-encoded image info into an array
+                $image = new JRegistry;
+                $image->loadString($item->image, 'JSON');
+                $item->imageDetails = $image;
+            }
+        }
 		return $results;
 	}
-
 }

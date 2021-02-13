@@ -10,76 +10,28 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-echo $this->item;
-
 ?>
-<h1>Posters view</h1>
-<div class="rescalendar" id="example"></div>
 
-<div id="horizontal-calendar"></div>
-<div class="uk-article"></div>
+<h1>Items view</h1>
 
-
-<script>
-
-const eventData = [
-	{
-		id: 1,
-		name:'item1',
-		startDate:'05-02-2021',
-		endDate:'08-02-2021',
-		customClass:'yourClass'
-	},
-	{
-		id: 2,
-		name:'item2',
-		startDate:'25-02-2021',
-		endDate:'25-02-2021',
-		customClass:'yourClass',
-		title:'Title 2'
-	},
-	{
-		id: 3,
-		name:'item5-5',
-		startDate:'05-01-2021',
-		endDate:'15-01-2021',
-		customClass:'yourClass'
-	}
-]
-
-
-
-$('#example').rescalendar({
-	id:'example',
-	format:'DD-MM-YYYY',
-	data: eventData,
-	dataKeyField:'name',
-	dataKeyValues: ['item1','item2','item3'],
-	locale:'en',
-
-	// initial date
-	refDate: moment().format('DD-MM-YYYY' ),
-
-	// the number of days to move on click
-	jumpSize: 15,
-
-	// calendar size
-	calSize: 30,
-
-	// disabled days
-	disabledDays : [],
-
-	// 0 = Sunday
-	disabledWeekDays: [],
-
-	// language strings
-	lang: {
-		'init_error' :'Error when initializing',
-		'no_data_error':'No data found',
-		'no_ref_date'  :'No refDate found',
-		'today'   :'Today'
-	}
-
-});
-
-</script>
+<?php if (isset($this->item) && count($this->item)) : ?>
+    <?php 
+        foreach ($this->item as $poster) :
+    ?>
+	<h1><?php echo $poster->title ?></h1>
+    <?php
+        $src = JURI::root() . ($poster->imageDetails['image']);
+        if ($src)
+        {
+            $html = '<figure>
+                        <img src="%s" alt="%s" >
+                        <figcaption>%s</figcaption>
+                    </figure>';
+            $alt = $poster->imageDetails['alt'];
+            $caption = $poster->imageDetails['caption'];
+            echo sprintf($html, $src, $alt, $caption);
+        } 
+    endforeach;?>
+<?php else: ?>
+    <p>No items</p>
+<?php endif; ?>

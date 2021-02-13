@@ -18,7 +18,7 @@ defined('_JEXEC') or die('Restricted access');
 class PosterCalendarViewPosterCalendar extends JViewLegacy
 {
 	/**
-	 * Display the PosterCalendar view
+	 * Display the Posters view
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
@@ -28,7 +28,7 @@ class PosterCalendarViewPosterCalendar extends JViewLegacy
 	function display($tpl = null)
 	{
 		// Assign data to the view
-		$this->item = $this->get('Item');
+		$this->item = $this->get('ListQuery');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
@@ -38,8 +38,19 @@ class PosterCalendarViewPosterCalendar extends JViewLegacy
 			return false;
 		}
 
-
 		// Display the view
-		parent::display($tpl);
+        parent::display($tpl);
+        
+        $this->setDocument();
+    }
+
+    protected function setDocument() 
+	{
+        JHtml::_('jquery.framework', false);
+        
+        $document = JFactory::getDocument();
+        $document->addScript('https://cdn.jsdelivr.net/npm/moment@latest/min/moment-with-locales.min.js');
+        $document->addScript(JURI::root() . "components/com_postercalendar"
+		                                  . "/views/postercalendar/rescalendar.js");
 	}
 }
