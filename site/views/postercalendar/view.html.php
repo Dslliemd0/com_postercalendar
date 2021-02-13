@@ -51,6 +51,6 @@ class PosterCalendarViewPosterCalendar extends JViewLegacy
         $document = JFactory::getDocument();
         $document->addScript('https://cdn.jsdelivr.net/npm/moment@latest/min/moment-with-locales.min.js');
         $document->addScript(JURI::root() . "components/com_postercalendar"
-		                                  . "/views/postercalendar/rescalendar.js");
+		                                  . "/views/postercalendar/postercalendar.js");
 	}
 }

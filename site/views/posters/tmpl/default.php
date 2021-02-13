@@ -12,8 +12,6 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 
-<h1>Items view</h1>
-
 <?php if (isset($this->item) && count($this->item)) : ?>
     <?php 
         foreach ($this->item as $poster) :
@@ -33,5 +31,5 @@ defined('_JEXEC') or die('Restricted access');
         } 
     endforeach;?>
 <?php else: ?>
-    <p>No items</p>
+    <p><?php echo JText::_('COM_POSTERCALENDAR_POSTERS_NO_ITEM_NOTIFICATION'); ?></p>
 <?php endif; ?>
