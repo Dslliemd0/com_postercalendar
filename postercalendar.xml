@@ -66,6 +66,9 @@
 			<folder>views</folder>
 			<!-- controllers files section -->
 			<folder>controllers</folder>
+			<!-- helpers files section -->
+			<folder>helpers</folder>
+
 		</files>
 		<languages folder="admin/language">
 			<language tag="en-GB">en-GB/en-GB.com_postercalendar.ini</language>

@@ -10,6 +10,11 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+jimport('joomla.client.helper');
+JClientHelper::setCredentialsFromRequest('ftp');		
+jimport('joomla.filesystem.file');
+
+
 use Joomla\Registry\Registry;
 
 /**
@@ -111,5 +116,43 @@ class PosterCalendarModelPosterCalendar extends JModelAdmin
 		}
 
 		return $data;
+	}
+
+	public function save($data)
+	{
+		JRequest::checkToken() or die( 'Invalid Token' );
+
+		jimport('joomla.filesystem.file');
+
+		$image_data = $data['imageinfo'];
+		$origin_filename = $data['imageinfo']['image'];
+		$origin_filepath = JPath::clean(JPATH_ROOT .
+									"/tmp/" . $origin_filename);
+
+		$filename = PosterCalendarHelper::combineFileNameDate($image_data['image'], $data['date']);
+
+		$date_array = explode('-', $data['date']);
+
+		if ($filename != '' && PosterCalendarHelper::isImage($filename)) {
+
+			JFolder::create(JPath::clean(JPATH_ROOT . "/images/postercalendar/" . $date_array[0]));
+
+			// Make sure that the full file path is safe.
+			$filepath = JPath::clean(JPATH_ROOT .
+									"/images/postercalendar/" . $date_array[0] . "/" . $filename );
+	
+			// Move the uploaded file.
+			if (JFile::upload($origin_filename, $filepath)) {
+				$data['imageinfo']['image'] = $filename;
+			} else {              
+				JError::raiseError( 4711, 'Error uploading file.' );
+			}        
+		} else {
+			JError::raiseError( 4711, 'The file you are trying to upload is not supported.' );
+		}
+
+		JRequest::setVar('jform', $data, 'post');
+
+		return parent::save($data);
 	}
 }

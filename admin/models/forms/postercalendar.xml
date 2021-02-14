@@ -32,7 +32,7 @@
 		>
 			<field
 				name="image"
-				type="media"
+				type="file"
 				preview="tooltip"
 				label="COM_POSTERCALENDAR_POSTERCALENDAR_FIELD_IMAGE_LABEL"
 				description="COM_POSTERCALENDAR_POSTERCALENDAR_FIELD_IMAGE_DESC" />

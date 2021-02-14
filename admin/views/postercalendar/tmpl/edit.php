@@ -11,6 +11,8 @@
 defined('_JEXEC') or die('Restricted access');
 
 ?>
+<jdoc:include type="message" />
+
 <form action="<?php echo JRoute::_('index.php?option=com_postercalendar&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm" class="form-validate">
     <div class="form-horizontal">
