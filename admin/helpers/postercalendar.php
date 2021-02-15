@@ -79,8 +79,8 @@ abstract class PosterCalendarHelper extends JHelperContent
         
         $file_extension = $filename_array[count($filename_array) - 1];
 
-        $file_extension = JFile::makeSafe($file_extension);
-    
+        $file_extension = JString::strtolower($file_extension);
+
         return $date . "_" . PosterCalendarHelper::generateRandomString() . "." . $file_extension;
 	}
 }

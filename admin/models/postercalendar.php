@@ -122,33 +122,35 @@ class PosterCalendarModelPosterCalendar extends JModelAdmin
 	{
 		JRequest::checkToken() or die( 'Invalid Token' );
 
+		$file = JFactory::getApplication()->input->files->get('jform');
+
 		jimport('joomla.filesystem.file');
 
-		$image_data = $data['imageinfo'];
-		$origin_filename = $data['imageinfo']['image'];
-		$origin_filepath = JPath::clean(JPATH_ROOT .
-									"/tmp/" . $origin_filename);
+		$src = $file['imageinfo']['image']['tmp_name'];
+		$filename = $file['imageinfo']['image']['name'];
 
-		$filename = PosterCalendarHelper::combineFileNameDate($image_data['image'], $data['date']);
+		$image_data = $data['imageinfo'];
+
+		$filename = PosterCalendarHelper::combineFileNameDate($filename, $data['date']);
 
 		$date_array = explode('-', $data['date']);
 
 		if ($filename != '' && PosterCalendarHelper::isImage($filename)) {
 
-			JFolder::create(JPath::clean(JPATH_ROOT . "/images/postercalendar/" . $date_array[0]));
+			$rel_path = "/images/postercalendar/" . $date_array[0] . "/" . $filename;
 
 			// Make sure that the full file path is safe.
-			$filepath = JPath::clean(JPATH_ROOT .
-									"/images/postercalendar/" . $date_array[0] . "/" . $filename );
+			$filepath = JPath::clean(JPATH_ROOT . $rel_path);
 	
 			// Move the uploaded file.
-			if (JFile::upload($origin_filename, $filepath)) {
-				$data['imageinfo']['image'] = $filename;
+			if (JFile::upload($src, $filepath)) {
+				$new_order = array('image' => $rel_path) + $data['imageinfo'];
+				$data['imageinfo'] = $new_order;
 			} else {              
 				JError::raiseError( 4711, 'Error uploading file.' );
 			}        
 		} else {
-			JError::raiseError( 4711, 'The file you are trying to upload is not supported.' );
+			JError::raiseError( 4711, 'The file you are trying to upload is not supported');
 		}
 
 		JRequest::setVar('jform', $data, 'post');

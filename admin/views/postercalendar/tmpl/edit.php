@@ -14,7 +14,7 @@ defined('_JEXEC') or die('Restricted access');
 <jdoc:include type="message" />
 
 <form action="<?php echo JRoute::_('index.php?option=com_postercalendar&layout=edit&id=' . (int) $this->item->id); ?>"
-    method="post" name="adminForm" id="adminForm" class="form-validate">
+    method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
     <div class="form-horizontal">
 
     <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
