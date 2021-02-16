@@ -141,9 +141,14 @@ class PosterCalendarModelPosterCalendar extends JModelAdmin
 
 			// Make sure that the full file path is safe.
 			$filepath = JPath::clean(JPATH_ROOT . $rel_path);
+
+			$resize_file_path = $filepath;
 	
 			// Move the uploaded file.
 			if (JFile::upload($src, $filepath)) {
+
+				PosterCalendarHelper::resize_image($resize_file_path);
+
 				$new_order = array('image' => $rel_path) + $data['imageinfo'];
 				$data['imageinfo'] = $new_order;
 			} else {              

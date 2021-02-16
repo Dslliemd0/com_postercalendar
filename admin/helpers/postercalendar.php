@@ -83,4 +83,49 @@ abstract class PosterCalendarHelper extends JHelperContent
 
         return $date . "_" . PosterCalendarHelper::generateRandomString() . "." . $file_extension;
 	}
+
+    public static function resize_image($file_name) {
+
+        list($width, $height, $type) = getimagesize($file_name);
+
+        $new_height = 900;
+
+        
+
+        if ($height > $new_height) {
+
+            switch ($type) {
+                case IMAGETYPE_JPEG:
+                    $image = imagecreatefromjpeg($file_name);
+                    break;
+                case IMAGETYPE_PNG:
+                    $image = imagecreatefrompng($file_name);
+                    break;
+                case IMAGETYPE_GIF:
+                    $image = imagecreatefromgif($file_name);
+                    break;
+            }
+        
+            $ratio = $new_height / $height;
+            $new_width = $width * $ratio;
+    
+            $new_image = imagecreatetruecolor($new_width, $new_height);
+            imagecopyresampled($new_image, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+    
+            switch ($type) {
+                case IMAGETYPE_JPEG:
+                    imagejpeg($new_image, $file_name, 100);
+                    break;
+                case IMAGETYPE_PNG:
+                    imagepng($new_image, $file_name);
+                    break;
+                case IMAGETYPE_GIF:
+                    imagegif($new_image, $file_name);
+                    break;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
