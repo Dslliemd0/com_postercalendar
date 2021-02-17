@@ -75,13 +75,55 @@ function renderDateContent() {
 }
 
 // convert string format date to array and set current date
-function setDateFromString(fullDate) {
+function getDateFromString(fullDate) {
     let dateArray = fullDate.split("-");
-    today.setDate(Number(dateArray[0]));
+    return Number(dateArray[0]);
+}
+
+const animateOnLoad = (item) => {
+    item.css('opacity', '0');
+    item.animate({
+        opacity: 1
+    }, 400);
+}
+
+const animateRightFlow = (item) => {
+    item.css('position', 'relative');
+    item.animate({
+        left: '+=100',
+        opacity: 0
+    }, 200, function () {
+        renderCalendar(today.getDate(), today.getMonth() + 1, today.getFullYear());
+        item.css('left', '-100px');
+        setTimeout(function() {
+            item.animate({
+                left: '+=100',
+                opacity: 1,
+            });
+        }, 200);
+    });
+}
+
+const animateLeftFlow = (item) => {
+    item.css('position', 'relative');
+    item.animate({
+        left: '-=100',
+        opacity: 0
+    }, 200, function () {
+        renderCalendar(today.getDate(), today.getMonth() + 1, today.getFullYear());
+        item.css('left', '100px');
+        setTimeout(function() {
+            item.animate({
+                left: '-=100',
+                opacity: 1,
+            });
+        }, 200);
+    });
 }
 
 // on page load render calendar and today's day content
 $(document).ready(function() {
+    animateOnLoad($('.pc-content'));
     renderCalendar(today.getDate(), today.getMonth() + 1, today.getFullYear());
 });
 
@@ -89,19 +131,27 @@ $(document).ready(function() {
 $(document).on('click', 'button#prev_date', function(e) {
     today.setMonth(today.getMonth() - 1);
     today.setDate(1);
-    renderCalendar(today.getDate(), today.getMonth() + 1, today.getFullYear());
+    animateRightFlow($('.pc-content'));
 });
 
 // on button id=next_date click set next month and first date of this month and render calendar
 $(document).on('click', 'button#next_date', function(e) {
     today.setMonth(today.getMonth() + 1);
     today.setDate(1);
-    renderCalendar(today.getDate(), today.getMonth() + 1, today.getFullYear());
+    animateLeftFlow($('.pc-content'));
 });
 
 // on click of date number set this date and render calendar based by this current day
 $(document).on('click', 'span.date-item', function(e) {
-    let itemFullDate = $(e.target).attr("data-date");
-    setDateFromString(itemFullDate);
-    renderCalendar(today.getDate(), today.getMonth() + 1, today.getFullYear());
+    let targetDate = getDateFromString($(e.target).attr("data-date"));
+
+    if (targetDate > today.getDate()) {
+        today.setDate(targetDate);
+        animateLeftFlow($('.pc-content'));
+    } else if (targetDate < today.getDate()) {
+        today.setDate(targetDate);
+        animateRightFlow($('.pc-content'));
+    } else {
+        renderCalendar(today.getDate(), today.getMonth() + 1, today.getFullYear());
+    }
 })
