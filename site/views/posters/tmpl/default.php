@@ -11,12 +11,11 @@
 defined('_JEXEC') or die('Restricted access');
 
 ?>
-
 <?php if (isset($this->item) && count($this->item)) : ?>
     <?php 
         foreach ($this->item as $poster) :
     ?>
-	<h1><?php echo $poster->title ?></h1>
+    <div class="pc-event">
     <?php
         $src = JURI::root() . ($poster->imageDetails['image']);
         if ($src)
@@ -26,9 +25,10 @@ defined('_JEXEC') or die('Restricted access');
                         <figcaption>%s</figcaption>
                     </figure>';
             $alt = $poster->imageDetails['alt'];
-            $caption = $poster->imageDetails['caption'];
+            $caption = $poster->title;
             echo sprintf($html, $src, $alt, $caption);
-        } 
+        }
+    ?></div><?php 
     endforeach;?>
 <?php else: ?>
     <p><?php echo JText::_('COM_POSTERCALENDAR_POSTERS_NO_ITEM_NOTIFICATION'); ?></p>

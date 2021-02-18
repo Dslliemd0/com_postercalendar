@@ -29,10 +29,15 @@ function renderCalendar(currentDate, currentMonth, currentYear) {
 
 // get calendar navigation (String format) based on month
 function getNavigation(month, year) {
-    resultHTML = `<button id="prev_date" type="button">prev</button>` +
-                `<h2>${months[month - 1]} of ${year}</h2>` +
-                `<button id="next_date" type="button">next</button><br />` +
-                getDateRange();            
+    if (language == 'lv-lv') {
+        monthTitle = `<h2>${year}. gada ${months[month - 1]}</h2>`;
+    } else {
+        monthTitle = `<h2>${months[month - 1]} of ${year}</h2>`;
+    }
+    resultHTML = `<div class="pc-month-title"><i id="prev_date" class="fa fa-chevron-left"></i>` +
+                monthTitle +
+                `<i id="next_date" class="fa fa-chevron-right"></i></div><div class="date-range">` +
+                getDateRange() + `</div>`;
     return resultHTML;
 }
 
@@ -128,14 +133,14 @@ $(document).ready(function() {
 });
 
 // on button id=prev_date click set previous month and first date of this month and render calendar
-$(document).on('click', 'button#prev_date', function(e) {
+$(document).on('click', 'i#prev_date', function(e) {
     today.setMonth(today.getMonth() - 1);
     today.setDate(1);
     animateRightFlow($('.pc-content'));
 });
 
 // on button id=next_date click set next month and first date of this month and render calendar
-$(document).on('click', 'button#next_date', function(e) {
+$(document).on('click', 'i#next_date', function(e) {
     today.setMonth(today.getMonth() + 1);
     today.setDate(1);
     animateLeftFlow($('.pc-content'));

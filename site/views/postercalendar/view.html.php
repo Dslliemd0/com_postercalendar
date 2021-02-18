@@ -46,11 +46,14 @@ class PosterCalendarViewPosterCalendar extends JViewLegacy
 
     protected function setDocument() 
 	{
-        JHtml::_('jquery.framework', false);
+		JHtml::_('jquery.framework', false);   
         
         $document = JFactory::getDocument();
-        $document->addScript('https://cdn.jsdelivr.net/npm/moment@latest/min/moment-with-locales.min.js');
+		$document->addScript('https://cdn.jsdelivr.net/npm/moment@latest/min/moment-with-locales.min.js');
         $document->addScript(JURI::root() . "components/com_postercalendar"
 		                                  . "/views/postercalendar/postercalendar.js");
+		$document->addStyleSheet(JURI::root() . "components/com_postercalendar"
+											. "/views/postercalendar/postercalendar.css");
+		$document->addStyleSheet("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 	}
 }
