@@ -84,6 +84,16 @@ abstract class PosterCalendarHelper extends JHelperContent
         return $date . "_" . PosterCalendarHelper::generateRandomString() . "." . $file_extension;
 	}
 
+    public static function isLandscape($filename) {
+        list($width, $height) = getimagesize($filename);
+
+        if ($width > $height) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static function resize_image($file_name) {
 
         list($width, $height, $type) = getimagesize($file_name);

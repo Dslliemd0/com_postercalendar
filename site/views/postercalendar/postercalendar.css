@@ -42,6 +42,7 @@
 #pc-main .pc-content {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 #pc-main .pc-event {
@@ -51,16 +52,23 @@
     margin: 5px;
 }
 
-#pc-main .pc-event img {
+#pc-main .pc-event-landscape {
+    flex: 0 0 calc(44% + 10px);
+    background-color: brown;
+    padding: 5px;
+    margin: 5px;
+}
+
+#pc-main .pc-event img, #pc-main .pc-event-landscape img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-#pc-main .pc-event figure {
+#pc-main .pc-event figure, #pc-main .pc-event-landscape figure {
     height: 100%;
 }
-#pc-main .pc-event figcaption {
+#pc-main .pc-event figcaption, #pc-main .pc-event-landscape figcaption {
     text-align: center;
     position: relative;
     top: -30px;

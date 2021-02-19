@@ -10,12 +10,22 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+$class = "pc-event";
+
 ?>
 <?php if (isset($this->item) && count($this->item)) : ?>
     <?php 
         foreach ($this->item as $poster) :
     ?>
-    <div class="pc-event">
+    <?php
+        if ($poster->imageDetails['landscape']) {
+            $class = "pc-event-landscape";
+        } else {
+            $class = "pc-event";
+        }
+    
+    ?>
+    <div class="<?php echo $class; ?>">
     <?php
         $src = JURI::root() . ($poster->imageDetails['image']);
         if ($src)

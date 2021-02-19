@@ -147,10 +147,13 @@ class PosterCalendarModelPosterCalendar extends JModelAdmin
 			// Move the uploaded file.
 			if (JFile::upload($src, $filepath)) {
 
+				$landscape = PosterCalendarHelper::isLandscape($resize_file_path);
+
 				PosterCalendarHelper::resize_image($resize_file_path);
 
 				$new_order = array('image' => $rel_path) + $data['imageinfo'];
 				$data['imageinfo'] = $new_order;
+				$data['imageinfo']['landscape'] = $landscape;
 			} else {              
 				JError::raiseError( 4711, 'Error uploading file.' );
 			}        
