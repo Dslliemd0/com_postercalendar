@@ -46,17 +46,23 @@
 }
 
 #pc-main .pc-event {
-    flex: 0 0 22%;
+    flex: 1 0 22%;
     background-color: brown;
     padding: 5px;
     margin: 5px;
 }
 
 #pc-main .pc-event-landscape {
-    flex: 0 0 calc(44% + 10px);
+    flex: 1 0 calc(44% + 10px);
     background-color: brown;
     padding: 5px;
     margin: 5px;
+}
+
+#pc-main .pc-event:last-child, #pc-main .pc-event-landscape:last-child,
+#pc-main .pc-event:nth-last-child(2), #pc-main .pc-event-landscape:nth-last-child(2),
+#pc-main .pc-event:nth-last-child(3), #pc-main .pc-event-landscape:nth-last-child(3) {
+    flex-grow: 0;
 }
 
 #pc-main .pc-event img, #pc-main .pc-event-landscape img {
@@ -73,4 +79,52 @@
     position: relative;
     top: -30px;
 }
+
+
+/* Popup image style */
+
+  
+img {
+    cursor: pointer;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15),
+    0 10px 10px -5px rgba(0, 0, 0, 0.1) !important;
+}
+  
+/* container for popup image */
+.popup-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    overflow: auto;
+    }
+/* background of the popup umage */
+
+.popup-background {
+    transition: all 0.3s ease-in-out;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+}
+
+.active-background {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* popup image, you can adjust here animation tranistion time and effect */
+.popup-image {
+    transition: opacity 0.3s ease-in-out;
+  position: relative;
+  display: block;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15),
+    0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+}
+
+
 

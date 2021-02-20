@@ -160,3 +160,97 @@ $(document).on('click', 'span.date-item', function(e) {
         renderCalendar(today.getDate(), today.getMonth() + 1, today.getFullYear());
     }
 })
+
+
+
+function initImagePopup(elem){
+    // check for mouse click, add event listener on document
+    document.addEventListener('click', function (e) {
+        // check if click target is img of the elem - elem is image container
+        if (!e.target.matches(elem +' img')) return;
+        else{
+
+            var image = e.target; // get current clicked image
+
+            const img = new Image();
+            img.src = image.src;
+
+            // create new popup image with all attributes for clicked images and offsets of the clicked image
+            var popupImage = document.createElement("img"); 
+            popupImage.setAttribute('src', img.src);
+            popupImage.style.opacity = "1";
+            popupImage.style.left = "50%";
+            popupImage.style.top = "50%";
+            popupImage.style.transform = "translate(-50%, -50%)";
+            
+            if (((img.width / img.height) * (window.innerHeight * 0.9)) > (window.innerWidth * 0.9)) {
+                popupImage.style.width = window.innerWidth * 0.9 + "px";
+                popupImage.style.height = ((img.height / img.width) * (window.innerWidth * 0.9))+"px";
+            } else {
+                popupImage.style.height = window.innerHeight * 0.9+"px";
+                popupImage.style.width = ((img.width / img.height) * (window.innerHeight * 0.9))+"px";
+            }
+
+            console.log(image.offsetLeft);
+            console.log(image.offsetTop+40+"px");
+            popupImage.classList.add('popup-image');
+
+            // creating popup image container
+            var popupContainer = document.createElement("div"); 
+            popupContainer.classList.add('popup-container');
+            
+            // creating popup image background
+            var popUpBackground = document.createElement("div"); 
+            popUpBackground.classList.add('popup-background');
+
+            // append all created elements to the popupContainer then on the document.body
+            popupContainer.appendChild(popUpBackground);
+            popupContainer.appendChild(popupImage);
+            document.body.appendChild(popupContainer);
+
+            // call function popup image to create new dimensions for popup image and make the effect
+            popupImageFunction();
+
+
+            // resize function, so that popup image have responsive ability
+            var wait;
+            window.onresize = function(){
+                clearTimeout(wait);
+                wait = setTimeout(popupImageFunction, 100);
+            };
+
+            // close popup image on clicking on the background
+            popUpBackground.addEventListener('click', function (e) {
+            popupImage.style.opacity = "0";
+                closePopUpImage();
+            });
+
+
+            function popupImageFunction(){
+                // wait few miliseconds (10) and change style of the popup image and make it popup
+                // waiting is for animation to work, yulu can disable it and check what is happening when it's not there
+                setTimeout(function(){      
+                    // I created this part very simple, but you can do it much better by calculating height and width of the screen,
+                    // image dimensions.. so that popup image can be placed much better
+                    popUpBackground.classList.add('active-background');
+                    
+                    
+                               
+                }, 10);
+            }
+
+            // function for closing popup image, first it will be return to the place where 
+            // it started then it will be removed totaly (deleted) after animation is over, in our case 300ms
+            function closePopUpImage(){
+                popUpBackground.classList.remove('active-background');
+                setTimeout(function(){      
+                    popupContainer.remove();
+                }, 300);
+            }
+            
+        }
+    });
+}
+
+// Start popup image function
+initImagePopup(".pc-content") // elem = image container
