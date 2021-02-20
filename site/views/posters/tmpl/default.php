@@ -30,10 +30,10 @@ $class = "pc-event";
         $src = JURI::root() . ($poster->imageDetails['image']);
         if ($src)
         {
-            $html = '<figure>
+            $html = '<div class="img-container">
                         <img src="%s" alt="%s" >
-                        <figcaption>%s</figcaption>
-                    </figure>';
+                        <div class="img-title"><p>%s</p></div>
+                    </div>';
             $alt = $poster->imageDetails['alt'];
             $caption = $poster->title;
             echo sprintf($html, $src, $alt, $caption);

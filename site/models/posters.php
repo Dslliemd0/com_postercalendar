@@ -46,6 +46,7 @@ class PosterCalendarModelPosters extends JModelList
             $query->select($db->quoteName(array('id', 'title', 'date', 'image', 'thumb')));
             $query->from($db->quoteName('#__poster_calendar_events'));
             $query->where($db->quoteName('date') . ' = ' . $db->quote($val));
+            $query->where($db->quoteName('published') . ' = ' . $db->quote('1'));
             $db->setQuery((string) $query);
 
             $results = $db->loadObjectList();

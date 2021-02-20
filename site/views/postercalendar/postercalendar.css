@@ -24,6 +24,7 @@
     width: 20%;
     text-align: center;
     font-size: 2em;
+    cursor: pointer;
 }
 
 #pc-head .date-range {
@@ -37,6 +38,11 @@
     padding: 2px 0;
     border: 2px solid #5b2f82;
     text-align: center;
+    cursor: pointer;
+}
+
+#pc-head .date-range .active {
+    background-color: rgba(91, 47, 130, 0.4);
 }
 
 #pc-main .pc-content {
@@ -47,22 +53,14 @@
 
 #pc-main .pc-event {
     flex: 1 0 22%;
-    background-color: brown;
     padding: 5px;
     margin: 5px;
 }
 
 #pc-main .pc-event-landscape {
     flex: 1 0 calc(44% + 10px);
-    background-color: brown;
     padding: 5px;
     margin: 5px;
-}
-
-#pc-main .pc-event:last-child, #pc-main .pc-event-landscape:last-child,
-#pc-main .pc-event:nth-last-child(2), #pc-main .pc-event-landscape:nth-last-child(2),
-#pc-main .pc-event:nth-last-child(3), #pc-main .pc-event-landscape:nth-last-child(3) {
-    flex-grow: 0;
 }
 
 #pc-main .pc-event img, #pc-main .pc-event-landscape img {
@@ -71,21 +69,56 @@
     object-fit: cover;
 }
 
-#pc-main .pc-event figure, #pc-main .pc-event-landscape figure {
+#pc-main .pc-event .img-container, #pc-main .pc-event-landscape .img-container {
+    height: 100%;
+    position: relative;
+}
+
+#pc-main .pc-event .img-container:hover, #pc-main .pc-event-landscape .img-container:hover {
     height: 100%;
 }
-#pc-main .pc-event figcaption, #pc-main .pc-event-landscape figcaption {
+
+#pc-main .pc-event .img-title, #pc-main .pc-event-landscape .img-title {
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
     text-align: center;
-    position: relative;
-    top: -30px;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    background-color: rgba(91, 47, 130, 0.8);
+    padding: 0;
 }
+
+#pc-main .pc-event .img-container:hover .img-title,
+#pc-main .pc-event-landscape .img-container:hover .img-title {
+    top: 0;
+    bottom: 0;
+    padding: 5px;
+}
+
+#pc-main .pc-event .img-title p, #pc-main .pc-event-landscape .img-title p {
+    transition: all 0.3s ease-in-out;
+    color: rgba(255, 255, 255, 0);
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#pc-main .pc-event .img-container:hover .img-title p,
+#pc-main .pc-event-landscape .img-container:hover .img-title p {
+    color: rgba(255, 255, 255, 1);
+}
+
 
 
 /* Popup image style */
 
   
 img {
-    cursor: pointer;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15),
     0 10px 10px -5px rgba(0, 0, 0, 0.1) !important;
 }

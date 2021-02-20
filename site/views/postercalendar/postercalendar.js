@@ -6,6 +6,7 @@ postercalendar.js - jan. 2021
 let today = new Date();
 let language = $('html')[0].lang;
 let months;
+let todaysDate = new Date(today);
 
 switch (language) {
     case 'lv-lv':
@@ -50,10 +51,15 @@ function getDateRange() {
 
     collectedDates = "";
     for (let i = 1; i <= lastDay.getDate(); i++) {
-        if (i == date.getDate()) {
+        if (todaysDate.getDate() == i && todaysDate.getMonth() == date.getMonth() &&
+            todaysDate.getYear() == date.getYear()) {
             collectedDates += `<span class="date-item" data-date="${String(i).padStart(2, '0')}-` +
                                 `${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}` + 
-                                `"><span style="color: red;">${i}</span></span>`;
+                                `"><strong>${i}</strong></span>`;
+        } else if (date.getDate() == i) {
+            collectedDates += `<span class="date-item active" data-date="${String(i).padStart(2, '0')}-` +
+                                `${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}` + 
+                                `">${i}</span>`;
         } else {
             collectedDates += `<span class="date-item" data-date="${String(i).padStart(2, '0')}-` +
                                 `${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}` + 
@@ -167,10 +173,10 @@ function initImagePopup(elem){
     // check for mouse click, add event listener on document
     document.addEventListener('click', function (e) {
         // check if click target is img of the elem - elem is image container
-        if (!e.target.matches(elem +' img')) return;
+        if (!e.target.matches('.img-title')) return;
         else{
 
-            var image = e.target; // get current clicked image
+            var image = e.target.previousElementSibling; // get current clicked image
 
             const img = new Image();
             img.src = image.src;
