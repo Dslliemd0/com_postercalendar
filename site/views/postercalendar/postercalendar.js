@@ -51,23 +51,35 @@ function getDateRange() {
 
     collectedDates = "";
     for (let i = 1; i <= lastDay.getDate(); i++) {
+        
+        let currentDate = String(i).padStart(2, '0');
+        let currentMonth = String(date.getMonth() + 1).padStart(2, '0');
+        let currentYear = date.getFullYear();
+
         if (todaysDate.getDate() == i && todaysDate.getMonth() == date.getMonth() &&
             todaysDate.getYear() == date.getYear()) {
-            collectedDates += `<span class="date-item" data-date="${String(i).padStart(2, '0')}-` +
-                                `${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}` + 
-                                `"><strong>${i}</strong></span>`;
+            collectedDates += `<span class="date-item date-today" data-date="${currentDate}-` +
+                                `${currentMonth}-${currentYear}">${i}</span>`;
         } else if (date.getDate() == i) {
-            collectedDates += `<span class="date-item active" data-date="${String(i).padStart(2, '0')}-` +
-                                `${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}` + 
-                                `">${i}</span>`;
+            collectedDates += `<span class="date-item active" data-date="${currentDate}-` +
+                                `${currentMonth}-${currentYear}">${i}</span>`;
         } else {
-            collectedDates += `<span class="date-item" data-date="${String(i).padStart(2, '0')}-` +
-                                `${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}` + 
-                                `">${i}</span>`;
+            collectedDates += `<span class="date-item" data-date="${currentDate}-` +
+                                `${currentMonth}-${currentYear}">${i}</span>`;
         }
     }
     return collectedDates;
 }
+
+// function createDateItem(content, elementType, parentElement, classes) {
+//     let dateItem = parentElement.createElement(elementType);
+//     if (typeof(classes) !== 'undefined') {
+//         for (let i = 3; i < arguments.length; i++) {
+//             dateItem.classList.add(arguments[i]);
+//         }
+//     }
+//     dateItem.innerHTML = content;
+// }
 
 // render current day content
 function renderDateContent() {

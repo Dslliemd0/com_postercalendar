@@ -42,6 +42,7 @@
 
 	<languages folder="site/language">
 		<language tag="en-GB">en-GB/en-GB.com_postercalendar.ini</language>
+		<language tag="lv-LV">lv-LV/lv-LV.com_postercalendar.ini</language>
 	</languages>
 
 	<administration>

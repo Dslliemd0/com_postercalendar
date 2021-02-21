@@ -74,9 +74,10 @@ class PosterCalendarViewPosterCalendars extends JViewLegacy
 		}
 
 		JToolBarHelper::title($title, 'postercalendar');
-		JToolBarHelper::deleteList('', 'postercalendars.delete');
-		JToolBarHelper::editList('postercalendar.edit');
+		
 		JToolBarHelper::addNew('postercalendar.add');
+		JToolBarHelper::editList('postercalendar.edit');
+		JToolBarHelper::deleteList('', 'postercalendars.delete');
 	}
 	/**
 	 * Method to set up the document properties

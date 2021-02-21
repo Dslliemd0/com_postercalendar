@@ -6,6 +6,12 @@
     box-sizing: border-box;
 }
 
+#pc-main-title {
+    text-align: center;
+    font-size: 2.3em;
+    margin-bottom: 30px;
+}
+
 #pc-head .pc-month-title {
     display: flex;
     justify-content: center;
@@ -41,6 +47,11 @@
     cursor: pointer;
 }
 
+#pc-head .date-range .date-today {
+    background-color: rgba(91, 47, 130, 1);
+    color: #fff;
+}
+
 #pc-head .date-range .active {
     background-color: rgba(91, 47, 130, 0.4);
 }
@@ -49,6 +60,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    min-height: 80vh;
 }
 
 #pc-main .pc-event {
