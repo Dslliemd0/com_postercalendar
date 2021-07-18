@@ -8,6 +8,7 @@ let language = $('html')[0].lang;
 let months;
 let todaysDate = new Date(today);
 
+
 switch (language) {
     case 'lv-lv':
         months = ["Janvāris","Februāris","Marts","Aprīlis",
@@ -25,6 +26,7 @@ switch (language) {
 function renderCalendar(currentDate, currentMonth, currentYear) {
     let finishedHTML = getNavigation(currentMonth, currentYear);
     $('#pc-head').html(finishedHTML);
+    markEventDates(currentDate);
     renderDateContent();
 }
 
@@ -56,19 +58,37 @@ function getDateRange() {
         let currentMonth = String(date.getMonth() + 1).padStart(2, '0');
         let currentYear = date.getFullYear();
 
-        if (todaysDate.getDate() == i && todaysDate.getMonth() == date.getMonth() &&
-            todaysDate.getYear() == date.getYear()) {
-            collectedDates += `<span class="date-item date-today" data-date="${currentDate}-` +
+       
+        collectedDates += `<span class="date-item" data-date="${currentDate}-` +
                                 `${currentMonth}-${currentYear}">${i}</span>`;
-        } else if (date.getDate() == i) {
-            collectedDates += `<span class="date-item active" data-date="${currentDate}-` +
-                                `${currentMonth}-${currentYear}">${i}</span>`;
-        } else {
-            collectedDates += `<span class="date-item" data-date="${currentDate}-` +
-                                `${currentMonth}-${currentYear}">${i}</span>`;
-        }
     }
     return collectedDates;
+}
+
+function markEventDates(activeDate) {
+    let dateRange = document.getElementById("pc-head");
+    let dateItems = dateRange.getElementsByClassName("date-item");
+
+
+    for (let i = 0; i < dateItems.length; i++) {
+        for (let j = 0; j < markedDates.length; j++) {
+            if (getYearFromString(dateItems[i].getAttribute("data-date")) == getYearFromString(markedDates[j], true) && 
+                getMonthFromString(dateItems[i].getAttribute("data-date")) == getMonthFromString(markedDates[j]) &&
+                getDateFromString(dateItems[i].getAttribute("data-date")) == getDateFromString(markedDates[j], true)) {
+                    dateItems[i].classList.add("event-date");
+                }
+        }
+        if (getYearFromString(dateItems[i].getAttribute("data-date")) == todaysDate.getFullYear() &&
+            getMonthFromString(dateItems[i].getAttribute("data-date")) == String(todaysDate.getMonth() + 1).padStart(2, '0') &&
+            getDateFromString(dateItems[i].getAttribute("data-date")) == todaysDate.getDate()) {
+            dateItems[i].classList.add("date-today");
+        }
+        if (getDateFromString(dateItems[i].getAttribute("data-date")) == activeDate) {
+            dateItems[i].classList.add("active-date");
+        }
+    }
+        
+    
 }
 
 // function createDateItem(content, elementType, parentElement, classes) {
@@ -98,9 +118,19 @@ function renderDateContent() {
 }
 
 // convert string format date to array and set current date
-function getDateFromString(fullDate) {
+function getDateFromString(fullDate, reversed = false) {
     let dateArray = fullDate.split("-");
-    return Number(dateArray[0]);
+    return (reversed ? Number(dateArray[2]) : Number(dateArray[0]));
+}
+
+function getYearFromString(fullDate, reversed = false) {
+    let dateArray = fullDate.split("-");
+    return (reversed ? dateArray[0] : dateArray[2]);
+}
+
+function getMonthFromString(fullDate) {
+    let dateArray = fullDate.split("-");
+    return Number(dateArray[1]);
 }
 
 const animateOnLoad = (item) => {
@@ -177,6 +207,8 @@ $(document).on('click', 'span.date-item', function(e) {
     } else {
         renderCalendar(today.getDate(), today.getMonth() + 1, today.getFullYear());
     }
+    console.log("added active");
+    $(e.target).addClass("active");
 })
 
 

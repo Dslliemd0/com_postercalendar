@@ -48,29 +48,36 @@
 }
 
 #pc-head .date-range .date-today {
-    background-color: rgba(91, 47, 130, 1);
-    color: #fff;
+    font-weight: 700;
 }
 
-#pc-head .date-range .active {
+#pc-head .date-range .event-date {
     background-color: rgba(91, 47, 130, 0.4);
+}
+
+#pc-head .date-range .active-date {
+    background-color: rgba(91, 47, 130, 1);
+    color: #fff;
 }
 
 #pc-main .pc-content {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    min-height: 80vh;
+}
+
+#pc-main .pc-content p {
+    min-height: 50vh;
 }
 
 #pc-main .pc-event {
-    flex: 1 0 22%;
+    flex: 0 1 22%;
     padding: 5px;
     margin: 5px;
 }
 
 #pc-main .pc-event-landscape {
-    flex: 1 0 calc(44% + 10px);
+    flex: 0 1 calc(44% + 10px);
     padding: 5px;
     margin: 5px;
 }
@@ -130,7 +137,7 @@
 /* Popup image style */
 
   
-img {
+#pc-main img {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15),
     0 10px 10px -5px rgba(0, 0, 0, 0.1) !important;
 }

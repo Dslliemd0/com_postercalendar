@@ -10,6 +10,7 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 ?>
+
 <h1 id="pc-main-title"><?php echo JText::_('COM_POSTERCALENDAR_POSTERCALENDAR_MAIN_TITLE'); ?></h1>
 
 <div id="pc-main">

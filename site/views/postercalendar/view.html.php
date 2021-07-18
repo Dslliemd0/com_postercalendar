@@ -38,18 +38,21 @@ class PosterCalendarViewPosterCalendar extends JViewLegacy
 			return false;
 		}
 
+		$date_array = 'let markedDates = ' . json_encode($this->item) . ';';
+
 		// Display the view
         parent::display($tpl);
         
-        $this->setDocument();
+        $this->setDocument($date_array);
     }
 
-    protected function setDocument() 
+    protected function setDocument($data_array) 
 	{
 		JHtml::_('jquery.framework', false);   
         
         $document = JFactory::getDocument();
 		$document->addScript('https://cdn.jsdelivr.net/npm/moment@latest/min/moment-with-locales.min.js');
+		$document->addScriptDeclaration($data_array);
         $document->addScript(JURI::root() . "components/com_postercalendar"
 		                                  . "/views/postercalendar/postercalendar.js");
 		$document->addStyleSheet(JURI::root() . "components/com_postercalendar"

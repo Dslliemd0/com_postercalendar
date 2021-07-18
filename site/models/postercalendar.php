@@ -43,20 +43,13 @@ class PosterCalendarModelPosterCalendar extends JModelList
             $id    = $this->getState('message.id');
             $db    = JFactory::getDbo();
             $query = $db->getQuery(true);
-            $query->select($db->quoteName(array('id', 'title', 'date', 'image', 'thumb')));
+            $query->select($db->quoteName('date'));
             $query->from($db->quoteName('#__poster_calendar_events'));
-            $query->where($db->quoteName('date') . ' = ' . $db->quote($val));
+            $query->where($db->quoteName('published') . ' = ' . $db->quote('1'));
             $db->setQuery((string) $query);
 
-            $results = $db->loadObjectList();
+            $results = $db->loadColumn();
         
-            foreach ($results as $item) 
-            {
-                // Convert the JSON-encoded image info into an array
-                $image = new JRegistry;
-                $image->loadString($item->image, 'JSON');
-                $item->imageDetails = $image;
-            }
         }
 		return $results;
 	}
